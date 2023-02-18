@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a5163cffb9695db4ea5ea417ef1b90d6
+guid: 0b719ff87aaa0eb4ba8b71fac6b4d489
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -105,33 +105,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: SpriteSheet_Flower_0
+      name: Portal_Sheet_0
       rect:
         serializedVersion: 2
-        x: 2
-        y: 1
-        width: 2
-        height: 8
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 43da60895879079428da54a9065026a0
-      internalID: 2035713539
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: SpriteSheet_Flower_1
-      rect:
-        serializedVersion: 2
-        x: 8
-        y: 1
-        width: 3
+        x: 0
+        y: 0
+        width: 9
         height: 9
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -140,20 +119,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 30f4ba460518f0248a2797bfd41368eb
-      internalID: -617603446
+      spriteID: bc36f8302de0e254a8c4ce760f62280c
+      internalID: 2029789095
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SpriteSheet_Flower_2
+      name: Portal_Sheet_1
       rect:
         serializedVersion: 2
-        x: 14
-        y: 1
-        width: 3
-        height: 10
+        x: 9
+        y: 0
+        width: 9
+        height: 9
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -161,20 +140,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8e894a9e5b21513468f5f30080d98907
-      internalID: 424466779
+      spriteID: af2d2604eb1c2dd4d80fd93a82771f25
+      internalID: -1764526219
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SpriteSheet_Flower_3
+      name: Portal_Sheet_2
       rect:
         serializedVersion: 2
         x: 18
-        y: 1
-        width: 8
-        height: 16
+        y: 0
+        width: 9
+        height: 9
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -182,8 +161,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7685036ca7385e742af1c425eb7aa640
-      internalID: 1022543133
+      spriteID: 6d28e5dd16cfdad45ae703a9b762bc46
+      internalID: 1474296293
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Portal_Sheet_3
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 0
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 37a04665c4d82084f8b25cb740b235ae
+      internalID: -97323500
       vertices: []
       indices: 
       edges: []
@@ -199,12 +199,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      SpriteSheet_Flower_5: 1845250443
-      SpriteSheet_Flower_0: 2035713539
-      SpriteSheet_Flower_2: 424466779
-      SpriteSheet_Flower_3: 1022543133
-      SpriteSheet_Flower_1: -617603446
-      SpriteSheet_Flower_4: -780827915
+      Portal_Sheet_1: -1764526219
+      Portal_Sheet_3: -97323500
+      Portal_Sheet_2: 1474296293
+      Portal_Sheet_0: 2029789095
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
