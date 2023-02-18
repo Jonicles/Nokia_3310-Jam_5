@@ -2,16 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MovingTest : MonoBehaviour
+public class Tile : MonoBehaviour
 {
-    float speed = -3;
     GameManager gameManager;
+
     private void Start()
     {
         gameManager = GameManager.Instance;
     }
+    // Update is called once per frame
     void Update()
     {
-        transform.position += new Vector3(0, gameManager.PixelSize * speed) * Time.deltaTime;
+        transform.position += new Vector3(0, gameManager.PixelSize * -gameManager.TileSpeed) * Time.deltaTime;
     }
 }

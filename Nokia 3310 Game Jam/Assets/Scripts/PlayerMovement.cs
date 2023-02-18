@@ -4,47 +4,48 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    GameManager gameManager;
     [SerializeField] AnimationCurve curve;
     [SerializeField] float moveTime;
     [SerializeField] GameObject currentTile;
-    float pixelSize = 0.032f;
-    float tileSize;
     Coroutine moveRoutine;
+
     private void Start()
     {
-        tileSize = pixelSize * 8;
+        gameManager = GameManager.Instance;
     }
     // Update is called once per frame
     void Update()
     {
-        if(moveRoutine == null)
+        if (moveRoutine == null)
         {
             transform.position = currentTile.transform.position;
         }
 
         if (Input.GetKeyDown(KeyCode.W))
         {
-            StartMove(transform.position + new Vector3(0, tileSize), true);
+            StartMove(transform.position + new Vector3(0, gameManager.TileSize), true, GameManager.Direction.Up);
         }
         if (Input.GetKeyDown(KeyCode.A))
         {
-            StartMove(transform.position + new Vector3(-tileSize, 0), false);
+            StartMove(transform.position + new Vector3(-gameManager.TileSize, 0), false, GameManager.Direction.Left);
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
-            StartMove(transform.position + new Vector3(0, -tileSize), true);
+            StartMove(transform.position + new Vector3(0, -gameManager.TileSize), true, GameManager.Direction.Down);
         }
         if (Input.GetKeyDown(KeyCode.D))
         {
-            StartMove(transform.position + new Vector3(tileSize, 0), false);
+            StartMove(transform.position + new Vector3(gameManager.TileSize, 0), false, GameManager.Direction.Right);
         }
     }
 
-    void StartMove(Vector3 goalPos, bool vertical)
+    void StartMove(Vector3 goalPos, bool vertical, GameManager.Direction dir)
     {
         if (moveRoutine == null)
         {
             moveRoutine = StartCoroutine(MovePlayer(goalPos, vertical));
+            AssignTile(gameManager.AssignTileToPlayer(currentTile, dir));
         }
     }
 
