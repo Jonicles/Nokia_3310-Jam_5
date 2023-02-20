@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] AnimationCurve curve;
     [SerializeField] float moveTime;
     [SerializeField] GameObject currentTile;
+    bool alive = true;
     Coroutine moveRoutine;
 
     private void Start()
@@ -19,24 +20,30 @@ public class PlayerMovement : MonoBehaviour
     {
         if (moveRoutine == null)
         {
-            transform.position = currentTile.transform.position;
+            if (currentTile != null)
+            {
+                transform.position = currentTile.transform.position;
+            }
         }
 
-        if (Input.GetKeyDown(KeyCode.W))
+        if (alive)
         {
-            StartMove(transform.position + new Vector3(0, gameManager.TileSize), true, GameManager.Direction.Up);
-        }
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            StartMove(transform.position + new Vector3(-gameManager.TileSize, 0), false, GameManager.Direction.Left);
-        }
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            StartMove(transform.position + new Vector3(0, -gameManager.TileSize), true, GameManager.Direction.Down);
-        }
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            StartMove(transform.position + new Vector3(gameManager.TileSize, 0), false, GameManager.Direction.Right);
+            if (Input.GetKeyDown(KeyCode.W))
+            {
+                StartMove(transform.position + new Vector3(0, gameManager.TileSize), true, GameManager.Direction.Up);
+            }
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+                StartMove(transform.position + new Vector3(-gameManager.TileSize, 0), false, GameManager.Direction.Left);
+            }
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+                StartMove(transform.position + new Vector3(0, -gameManager.TileSize), true, GameManager.Direction.Down);
+            }
+            if (Input.GetKeyDown(KeyCode.D))
+            {
+                StartMove(transform.position + new Vector3(gameManager.TileSize, 0), false, GameManager.Direction.Right);
+            }
         }
     }
 
@@ -84,5 +91,17 @@ public class PlayerMovement : MonoBehaviour
     public void AssignTile(GameObject tile)
     {
         currentTile = tile;
+        if (currentTile.GetComponent<Tile>().IsEmpty)
+        {
+            Die();
+        }
+    }
+
+    public void Die()
+    {
+        //transform.position = currentTile.transform.position;
+        GetComponent<SpriteRenderer>().sortingOrder = -1; //Makes sure player sprite renders under tiles, you have fallen down
+        alive = false;
+        currentTile = null;
     }
 }
