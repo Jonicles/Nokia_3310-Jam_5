@@ -23,6 +23,10 @@ public class PlayerMovement : MonoBehaviour
             if (currentTile != null)
             {
                 transform.position = currentTile.transform.position;
+                if (currentTile.GetComponent<Tile>().IsEmpty)
+                {
+                    Die();
+                }
             }
         }
 
@@ -94,6 +98,10 @@ public class PlayerMovement : MonoBehaviour
         if (currentTile.GetComponent<Tile>().IsEmpty)
         {
             Die();
+        }
+        else
+        {
+            currentTile.GetComponent<Tile>().StartDecay();
         }
     }
 

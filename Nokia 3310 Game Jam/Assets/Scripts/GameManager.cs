@@ -2,31 +2,35 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public class TileRow
+{
+    public List<GameObject> tileList = new List<GameObject>();
+}
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     float pixelSize = 0.03125f;
-    float tileSize = 0.28125f; //Pixelsize times 9, since the middle point off one tile is always 9 pixels away from the next tile
+    float tileSize = 0.25f; //Pixelsize times 8, since the middle point off one tile is always 8 pixels away from the next tile
     public float PixelSize { get { return pixelSize; } private set { pixelSize = value; } }
     public float TileSize { get { return tileSize; } private set { tileSize = value; } }
 
-    [SerializeField] float tileSpeed = 3; // How fast tiles will move downwards
+    [SerializeField] float tileSpeed = 2; // How fast tiles will move downwards, this should change during the game which means tile spawn rate also need to change
     public float TileSpeed { get { return tileSpeed; } private set { tileSpeed = value; } }
 
-    [System.Serializable]
-    public class TileRow
-    {
-        public List<GameObject> tileList = new List<GameObject>();
-    }
+    [SerializeField] float tileDecayTime = 2; // How fast tiles will decay and become empty
+    public float TileDecayTime { get { return tileDecayTime; } private set { tileDecayTime = value; } }
+
+
 
     [SerializeField] List<TileRow> tileRowList = new List<TileRow>();
 
-    PlayerMovement player;
+    //PlayerMovement player;
 
     public enum Direction { Up, Down, Left, Right };
     void Awake()
     {
-        player = GameObject.Find("Player").GetComponent<PlayerMovement>();
+        //player = GameObject.Find("Player").GetComponent<PlayerMovement>();
         if (Instance == null)
         {
             Instance = this;
@@ -36,6 +40,11 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    public void AddNewTileRow(TileRow newRow)
+    {
+        tileRowList.Add(newRow);
     }
 
     public GameObject AssignTileToPlayer(GameObject currentTile, Direction dir)
