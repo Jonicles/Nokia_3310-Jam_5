@@ -7,9 +7,13 @@ public class PlayerMovement : MonoBehaviour
     GameManager gameManager;
     [SerializeField] AnimationCurve curve;
     [SerializeField] float moveTime;
-    [SerializeField] GameObject currentTile;
-    bool alive = true;
+    [SerializeField] public GameObject currentTile;
+    [SerializeField] Animator animator;
+    public bool alive = true;
     Coroutine moveRoutine;
+    private string currentState;
+    const string Player_Idle = "player_Idle";
+    const string Player_Jump = "player_Jump";
 
     private void Start()
     {
@@ -35,18 +39,22 @@ public class PlayerMovement : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.W))
             {
                 StartMove(transform.position + new Vector3(0, gameManager.TileSize), true, GameManager.Direction.Up);
+                ChangeAnimationState(Player_Jump);
             }
             if (Input.GetKeyDown(KeyCode.A))
             {
                 StartMove(transform.position + new Vector3(-gameManager.TileSize, 0), false, GameManager.Direction.Left);
+                ChangeAnimationState(Player_Jump);
             }
             if (Input.GetKeyDown(KeyCode.S))
             {
                 StartMove(transform.position + new Vector3(0, -gameManager.TileSize), true, GameManager.Direction.Down);
+                ChangeAnimationState(Player_Jump);
             }
             if (Input.GetKeyDown(KeyCode.D))
             {
                 StartMove(transform.position + new Vector3(gameManager.TileSize, 0), false, GameManager.Direction.Right);
+                ChangeAnimationState(Player_Jump);
             }
         }
     }
@@ -83,6 +91,7 @@ public class PlayerMovement : MonoBehaviour
             yield return null;
         }
 
+        ChangeAnimationState(Player_Idle);
         //if (vertical)
         //    transform.position = new Vector3(transform.position.x, goalPos.y);
         //else
@@ -111,5 +120,15 @@ public class PlayerMovement : MonoBehaviour
         GetComponent<SpriteRenderer>().sortingOrder = -1; //Makes sure player sprite renders under tiles, you have fallen down
         alive = false;
         currentTile = null;
+    }
+
+    void ChangeAnimationState(string newState)
+    {
+        if (currentState == newState)
+            return;
+
+        animator.Play(newState);
+
+        currentState = newState;
     }
 }

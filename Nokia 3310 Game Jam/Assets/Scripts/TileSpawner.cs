@@ -10,7 +10,7 @@ public class TileSpawner : MonoBehaviour
     float timeBetweenSpawns = 1f;
     float currentTimeValue;
     GameManager gameManager;
-
+    [SerializeField] PlayerMovement player;
 
     void Start()
     {
@@ -20,14 +20,17 @@ public class TileSpawner : MonoBehaviour
 
     private void Update()
     {
-        if (currentTimeValue > 0)
+        if (player.alive)
         {
-            currentTimeValue -= Time.deltaTime * gameManager.TileSpeed;
-        }
-        else
-        {
-            CreateNewRow();
-            currentTimeValue = timeBetweenSpawns;
+            if (currentTimeValue > 0)
+            {
+                currentTimeValue -= Time.deltaTime * gameManager.TileSpeed;
+            }
+            else
+            {
+                CreateNewRow();
+                currentTimeValue = timeBetweenSpawns;
+            }
         }
     }
 
@@ -41,7 +44,23 @@ public class TileSpawner : MonoBehaviour
 
     }
 
+
     public void CreateNewRow()
+    {
+        TileRow tempRow = new TileRow();
+        bool path = false;
+
+        while (!path)
+        {
+            Debug.Log("ran");
+            tempRow = eh();
+            path = gameManager.CheckPath(tempRow);
+        }
+
+        gameManager.AddNewTileRow(tempRow);
+    }
+
+    public TileRow eh()
     {
         TileRow newRow = new TileRow();
         for (int i = 0; i < tileOnRowAmount; i++)
@@ -54,7 +73,7 @@ public class TileSpawner : MonoBehaviour
             }
         }
 
-        gameManager.AddNewTileRow(newRow);
+        return newRow;
     }
 
 }
