@@ -43,24 +43,16 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (tileRowList.Count == 13)
+        {
+            RemoveBottomTileRow();
+        }
+    }
+
     public bool CheckPath(TileRow potentialRow)
     {
-        //int row;
-        //int tilePos;
-
-        //for (int i = 0; i < tileRowList.Count; i++)
-        //{
-        //    for (int j = 0; j < tileRowList[i].tileList.Count; j++)
-        //    {
-        //        if (tileRowList[i].tileList[j] == player.currentTile)
-        //        {
-        //            row = i;
-        //            tilePos = j;
-        //        }
-        //    }
-        //}
-
-
         List<GameObject> tilesToCheck = new List<GameObject>();
 
         for (int i = 0; i < potentialRow.tileList.Count; i++)
@@ -71,20 +63,19 @@ public class GameManager : MonoBehaviour
             }
         }
         List<GameObject> knownTiles = new List<GameObject>();
-
-        bool path = Recursion(tilesToCheck, knownTiles);
-        return path; //If there are no adjacent tiles the path will be false
-    }
-
-    private bool Recursion(List<GameObject> tilesToCheck, List<GameObject> knownTiles)
-    {
-        bool path;
-
+        knownTiles = Recursion(tilesToCheck, knownTiles);
+        
         if (knownTiles.Contains(player.currentTile))
         {
             return true;
         }
+        else
+            return false;
+        //If there are no adjacent tiles the path will be false
+    }
 
+    private List<GameObject> Recursion(List<GameObject> tilesToCheck, List<GameObject> knownTiles)
+    {
         List<GameObject> connectedTiles = new List<GameObject>();
 
         foreach (GameObject tileGO in tilesToCheck)
@@ -136,21 +127,27 @@ public class GameManager : MonoBehaviour
                                     }
                                 }
                             }
+
+                            //Check top tile
+                            if (i != tileRowList.Count - 1)
+                            {
+                                if (!tileRowList[i + 1].tileList[j].GetComponent<Tile>().IsEmpty)
+                                {
+                                    if (!knownTiles.Contains(tileRowList[i + 1].tileList[j]))
+                                    {
+                                        connectedTiles.Add(tileRowList[i + 1].tileList[j]);
+                                    }
+                                }
+                            }
                         }
                     }
                 }
 
-                path = Recursion(connectedTiles, knownTiles);
+                Recursion(connectedTiles, knownTiles);
             }
         }
 
-        if (knownTiles.Contains(player.currentTile))
-        {
-            return true;
-        }
-        else
-            return false;
-
+        return knownTiles;
     }
 
     public void AddNewTileRow(TileRow newRow)
@@ -160,7 +157,12 @@ public class GameManager : MonoBehaviour
 
     public void RemoveBottomTileRow()
     {
-
+        for (int i = 5 - 1; i >= 0; i--)
+        {
+            Destroy(tileRowList[0].tileList[i].gameObject);
+            tileRowList[0].tileList.RemoveAt(i);
+        }
+        tileRowList.Remove(tileRowList[0]);
     }
 
     public GameObject AssignTileToPlayer(GameObject currentTile, Direction dir)

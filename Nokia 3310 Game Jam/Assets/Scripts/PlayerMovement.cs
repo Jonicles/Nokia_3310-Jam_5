@@ -27,8 +27,9 @@ public class PlayerMovement : MonoBehaviour
             if (currentTile != null)
             {
                 transform.position = currentTile.transform.position;
-                if (currentTile.GetComponent<Tile>().IsEmpty)
+                if (currentTile.GetComponent<Tile>().IsEmpty && alive)
                 {
+                    Debug.Log("Die because current tile is empty");
                     Die();
                 }
             }
@@ -103,9 +104,15 @@ public class PlayerMovement : MonoBehaviour
 
     public void AssignTile(GameObject tile)
     {
+        if(currentTile == tile)
+        {
+            Die();
+            return;
+        }
         currentTile = tile;
         if (currentTile.GetComponent<Tile>().IsEmpty)
         {
+            Debug.Log("Die Because newly assigned tile is empty");
             Die();
         }
         else
