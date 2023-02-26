@@ -11,6 +11,10 @@ public class Tile : MonoBehaviour
     float currentTime;
     bool isDecaying = false;
     bool pointsCollected = false;
+    string currentState;
+    const string Tile_Decay = "tile_Decay";
+    const string Tile_Empty = "tile_Empty";
+    [SerializeField] Animator animator;
 
     public bool IsEmpty { get { return isEmpty; } private set { isEmpty = value; } }
 
@@ -18,7 +22,6 @@ public class Tile : MonoBehaviour
     {
         gameManager = GameManager.Instance;
         pointManager = GameObject.Find("PointManager").GetComponent<PointManager>();
-
     }
     // Update is called once per frame
     void Update()
@@ -42,7 +45,7 @@ public class Tile : MonoBehaviour
     public void StartDecay()
     {
         isDecaying = true;
-
+        ChangeAnimationState(Tile_Decay);
         if (pointsCollected == false)
         {
             pointManager.AddPoints(Random.Range(10, 15));
@@ -52,10 +55,20 @@ public class Tile : MonoBehaviour
 
     }
 
+    void ChangeAnimationState(string newState)
+    {
+        if (currentState == newState)
+            return;
+
+        animator.Play(newState);
+
+        currentState = newState;
+    }
+
     public void EmptyTile()
     {
         isEmpty = true;
-        GetComponent<SpriteRenderer>().sprite = null;
-        
+        ChangeAnimationState(Tile_Empty);
+        //gameObject.GetComponent<SpriteRenderer>().sprite = null;
     }
 }
