@@ -61,12 +61,8 @@ public class GameManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
                 Restart();
+                AudioManager.Instance.PlaySound(SoundType.Restart);
             }
-            //Skickar spelaren till huvudmenyn, men är buggat då tile-genereringen inte funkar när man startar igen.
-            /*if (Input.GetKeyDown(KeyCode.Alpha2))
-            {
-                SceneManager.LoadScene(0);
-            }*/
         }
         
     }

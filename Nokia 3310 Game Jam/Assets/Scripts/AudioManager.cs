@@ -5,17 +5,10 @@ using UnityEditor;
 using UnityEngine.Audio;
 public enum SoundType
 {
-    //Add more sound names here
-    BlobLoop,
-    OrganClick,
-    OrganPlace,
-    OrganRemoval,
-    ButtonClick,
-    BlobStart,
-    Success,
-    RobotVoice,
-    Music,
-
+    PlayerMove,
+    Start,
+    GameOver,
+    Restart
 }
 
 public class AudioManager : MonoBehaviour

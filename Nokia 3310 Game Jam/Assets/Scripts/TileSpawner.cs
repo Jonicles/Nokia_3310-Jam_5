@@ -58,7 +58,7 @@ public class TileSpawner : MonoBehaviour
 
             while (!path && player.alive)
             {
-                tempRow = eh();
+                tempRow = CreateTemporaryRow();
                 path = gameManager.CheckPath(tempRow);
                 
                 if (!path)
@@ -94,7 +94,7 @@ public class TileSpawner : MonoBehaviour
         return path;
     }
 
-    public TileRow eh()
+    public TileRow CreateTemporaryRow()
     {
         TileRow newRow = new TileRow();
         for (int i = 0; i < tileOnRowAmount; i++)

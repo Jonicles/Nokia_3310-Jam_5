@@ -11,6 +11,7 @@ public class StartMenu : MonoBehaviour
         if (Input.anyKey)
         {
             SceneManager.LoadScene(1);
+            AudioManager.Instance.PlaySound(SoundType.Start);
         }
     }
 }

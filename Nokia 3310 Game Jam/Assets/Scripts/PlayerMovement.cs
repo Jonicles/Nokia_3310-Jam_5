@@ -35,7 +35,17 @@ public class PlayerMovement : MonoBehaviour
                 transform.position = currentTile.transform.position;
                 if (currentTile.GetComponent<Tile>().IsEmpty && alive)
                 {
-                    Debug.Log("Die because current tile is empty");
+                    if (alive)
+                    {
+                        Die();
+                    }
+                }
+            }
+            else
+            {
+                print("yuup");
+                if (alive)
+                {
                     Die();
                 }
             }
@@ -72,6 +82,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (moveRoutine == null)
         {
+            AudioManager.Instance.PlaySound(SoundType.PlayerMove);
             moveRoutine = StartCoroutine(MovePlayer(goalPos, vertical));
             AssignTile(gameManager.AssignTileToPlayer(currentTile, dir));
         }
@@ -112,16 +123,21 @@ public class PlayerMovement : MonoBehaviour
 
     public void AssignTile(GameObject tile)
     {
-        if(currentTile == tile)
+        if (currentTile == tile)
         {
-            Die();
+            if (alive)
+            {
+                Die();
+            }
             return;
         }
         currentTile = tile;
         if (currentTile.GetComponent<Tile>().IsEmpty)
         {
-            Debug.Log("Die Because newly assigned tile is empty");
-            Die();
+            if (alive)
+            {
+                Die();
+            }
         }
         else
         {
@@ -132,6 +148,7 @@ public class PlayerMovement : MonoBehaviour
     public void Die()
     {
         //Sets the final score for the player
+        AudioManager.Instance.PlaySound(SoundType.GameOver);
         gameOverUI.SetActive(true);
         Text gameOverPoints = GameObject.Find("Score").GetComponent<Text>();
         PointManager playerPoints = GameObject.Find("PointManager").GetComponent<PointManager>();
