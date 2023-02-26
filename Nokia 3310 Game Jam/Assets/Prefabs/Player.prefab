@@ -122,9 +122,10 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  moveTime: 0.1
+  moveTime: 0.2085
   currentTile: {fileID: 0}
   animator: {fileID: 6779820496403403544}
+  alive: 1
 --- !u!95 &6779820496403403544
 Animator:
   serializedVersion: 5

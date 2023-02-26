@@ -22,6 +22,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] float tileDecayTime = 2; // How fast tiles will decay and become empty
     public float TileDecayTime { get { return tileDecayTime; } private set { tileDecayTime = value; } }
 
+    [SerializeField] GameObject startingArea;
+
+    [SerializeField] TileSpawner spawner;
+
 
 
     [SerializeField] List<TileRow> tileRowList = new List<TileRow>();
@@ -49,6 +53,11 @@ public class GameManager : MonoBehaviour
         {
             RemoveBottomTileRow();
         }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Restart();
+        }
     }
 
     public bool CheckPath(TileRow potentialRow)
@@ -64,7 +73,7 @@ public class GameManager : MonoBehaviour
         }
         List<GameObject> knownTiles = new List<GameObject>();
         knownTiles = Recursion(tilesToCheck, knownTiles);
-        
+
         if (knownTiles.Contains(player.currentTile))
         {
             return true;
@@ -238,5 +247,51 @@ public class GameManager : MonoBehaviour
                 break;
         }
         return currentTile;
+    }
+
+    public void Restart()
+    {
+        GameObject startArea = Instantiate(startingArea, new Vector3(0, 0.5f, 0), Quaternion.identity);
+        for (int i = 0; i < tileRowList.Count; i++)
+        {
+            for (int j = 0; j < 5; j++)
+            {
+                Destroy(tileRowList[i].tileList[j]);
+            }
+        }
+
+        tileRowList.Clear();
+        InsertStartArea(startArea);
+        StartSpawner();
+    }
+
+    private void InsertStartArea(GameObject startarea)
+    {
+        for (int i = 0; i < startarea.transform.childCount; i++)
+        {
+            TileRow newTileRow = new TileRow();
+
+            for (int j = 0; j < startarea.transform.GetChild(i).childCount; j++)
+            {
+                newTileRow.tileList.Add(startarea.transform.GetChild(i).transform.GetChild(j).gameObject);
+            }
+
+            tileRowList.Add(newTileRow);
+        }
+
+        player.alive = true;
+        player.currentTile = tileRowList[0].tileList[2];
+        player.gameObject.transform.position = tileRowList[0].tileList[2].transform.position;
+        player.gameObject.GetComponent<SpriteRenderer>().sortingOrder = 2;
+    }
+
+    public void StartSpawner()
+    {
+        spawner.StartSpawner();
+    }
+
+    public void StopSpawner()
+    {
+        spawner.StopSpawner();
     }
 }

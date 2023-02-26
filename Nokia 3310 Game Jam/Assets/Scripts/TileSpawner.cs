@@ -21,7 +21,7 @@ public class TileSpawner : MonoBehaviour
 
     private void Update()
     {
-        if (player.alive && isActive)
+        if (isActive)
         {
             if (currentTimeValue > 0)
             {
@@ -43,6 +43,7 @@ public class TileSpawner : MonoBehaviour
     public void StopSpawner()
     {
         isActive = false;
+        currentTimeValue = 0;
     }
 
 

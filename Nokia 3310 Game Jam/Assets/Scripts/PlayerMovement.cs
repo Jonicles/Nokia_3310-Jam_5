@@ -124,6 +124,7 @@ public class PlayerMovement : MonoBehaviour
     public void Die()
     {
         //transform.position = currentTile.transform.position;
+        gameManager.StopSpawner();
         GetComponent<SpriteRenderer>().sortingOrder = -1; //Makes sure player sprite renders under tiles, you have fallen down
         alive = false;
         currentTile = null;
