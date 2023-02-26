@@ -23,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
         gameManager = GameManager.Instance;
         gameOverUI = GameObject.Find("GameOverMenu");
         //gameOverUI.SetActive(false);
+        gameManager.gameIsOver = false;
     }
     // Update is called once per frame
     void Update()
@@ -137,6 +138,7 @@ public class PlayerMovement : MonoBehaviour
         gameOverPoints.text = "Score " + playerPoints.GetPoints();
 
         //transform.position = currentTile.transform.position;
+        gameManager.gameIsOver = true;
         gameManager.StopSpawner();
         GetComponent<SpriteRenderer>().sortingOrder = -1; //Makes sure player sprite renders under tiles, you have fallen down
         alive = false;

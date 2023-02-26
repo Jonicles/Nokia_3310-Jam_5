@@ -955,7 +955,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1336867838
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1238,6 +1238,7 @@ MonoBehaviour:
     - {fileID: 102700295}
     - {fileID: 365397853}
     - {fileID: 1684793281}
+  gameIsOver: 0
 --- !u!1 &1893647422 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2365925326287474455, guid: 1719870612ae7ed418112039b45180c0, type: 3}

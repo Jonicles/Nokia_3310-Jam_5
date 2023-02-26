@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [System.Serializable]
 public class TileRow
@@ -26,11 +27,11 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] TileSpawner spawner;
 
-
-
     [SerializeField] List<TileRow> tileRowList = new List<TileRow>();
 
     PlayerMovement player;
+
+    public bool gameIsOver;
 
     public enum Direction { Up, Down, Left, Right };
     void Awake()
@@ -46,6 +47,7 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    
 
     private void Update()
     {
@@ -54,10 +56,19 @@ public class GameManager : MonoBehaviour
             RemoveBottomTileRow();
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (gameIsOver == true)
         {
-            Restart();
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                Restart();
+            }
+            //Skickar spelaren till huvudmenyn, men är buggat då tile-genereringen inte funkar när man startar igen.
+            /*if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                SceneManager.LoadScene(0);
+            }*/
         }
+        
     }
 
     public bool CheckPath(TileRow potentialRow)
@@ -265,6 +276,7 @@ public class GameManager : MonoBehaviour
 
         tileRowList.Clear();
         InsertStartArea(startArea);
+        gameIsOver = false;
         StartSpawner();
     }
 
