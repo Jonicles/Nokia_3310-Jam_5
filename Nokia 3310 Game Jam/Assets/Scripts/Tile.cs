@@ -4,9 +4,7 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
-    PointManager pointManager;
-    int pointMultiplier;
-    
+    PointManager pointManager;    
     GameManager gameManager;
     [SerializeField] bool isEmpty = false;
     //[SerializeField] float decayTime = 2;
@@ -47,7 +45,7 @@ public class Tile : MonoBehaviour
 
         if (pointsCollected == false)
         {
-            pointManager.AddPoints(Random.Range(10, 15) * pointMultiplier);
+            pointManager.AddPoints(Random.Range(10, 15));
             pointsCollected = true;
         }
         
