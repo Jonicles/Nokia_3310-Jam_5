@@ -260,6 +260,9 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        PointManager playerPoints = GameObject.Find("PointManager").GetComponent<PointManager>();
+        playerPoints.ResetPoints();
+
         tileRowList.Clear();
         InsertStartArea(startArea);
         StartSpawner();

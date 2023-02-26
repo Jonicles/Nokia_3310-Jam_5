@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -15,9 +16,13 @@ public class PlayerMovement : MonoBehaviour
     const string Player_Idle = "player_Idle";
     const string Player_Jump = "player_Jump";
 
+    GameObject gameOverUI;
+
     private void Start()
     {
         gameManager = GameManager.Instance;
+        gameOverUI = GameObject.Find("GameOverMenu");
+        //gameOverUI.SetActive(false);
     }
     // Update is called once per frame
     void Update()
@@ -37,6 +42,8 @@ public class PlayerMovement : MonoBehaviour
 
         if (alive)
         {
+            gameOverUI.SetActive(false);
+
             if (Input.GetKeyDown(KeyCode.W))
             {
                 StartMove(transform.position + new Vector3(0, gameManager.TileSize), true, GameManager.Direction.Up);
@@ -123,6 +130,12 @@ public class PlayerMovement : MonoBehaviour
 
     public void Die()
     {
+        //Sets the final score for the player
+        gameOverUI.SetActive(true);
+        Text gameOverPoints = GameObject.Find("Score").GetComponent<Text>();
+        PointManager playerPoints = GameObject.Find("PointManager").GetComponent<PointManager>();
+        gameOverPoints.text = "Score " + playerPoints.GetPoints();
+
         //transform.position = currentTile.transform.position;
         gameManager.StopSpawner();
         GetComponent<SpriteRenderer>().sortingOrder = -1; //Makes sure player sprite renders under tiles, you have fallen down
